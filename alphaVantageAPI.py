@@ -20,8 +20,18 @@ for x in data['Time Series (1min)']:
     yAx.append(float(temp))
     temp=''
 print(xAx, yAx) 
-plt.scatter(xAx,yAx)
-z=np.polyfit(x,y,1)
-p=np.poly1d(z)
-plt.plot(x,p(x))   
+# plt.scatter([dt.timestamp() for dt in xAx],yAx)
+# z=np.polyfit([dt.timestamp() for dt in xAx],yAx,1)
+# p=np.poly1d(z)
+# plt.plot(xAx,p([datetime.timestamp() for x in xAx]))   
+# plt.show()
+
+timestamps = [dt.timestamp() for dt in xAx]
+plt.plot(timestamps, yAx, marker='o', linestyle='-', color='b', label='Data Points')
+z = np.polyfit(timestamps, yAx, 1)
+p = np.poly1d(z)
+plt.plot(timestamps, p(timestamps), color='r', label='Trend Line')
+plt.xlabel('Time')
+plt.ylabel('Price')
+plt.legend()
 plt.show()
